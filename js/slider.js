@@ -8,6 +8,7 @@ export default class Slider extends Component {
 	constructor(props) {
 		super(props);
         this.timer = null;
+        this.isOntouch = false;
 	}
 	static defaultProps = {
 		width: window.innerWidth,
@@ -67,6 +68,9 @@ export default class Slider extends Component {
 	}
 
 	handleTouchStart(e) {
+        e.preventDefault();
+        if(this.isOntouch || e.touches.length > 1) return;
+        this.isOntouch = true;
 		this.stop();
 		let tt = e.targetTouches[0];
 		this.setState({
@@ -74,22 +78,21 @@ export default class Slider extends Component {
 			startX: tt.pageX,
 			startTime: new Date()
 		});
-		e.preventDefault();
 	}
 
 	handleTouchMove(e) {
+        e.preventDefault();
+        if(!this.isOntouch || e.touches.length > 1) return;
 		let tt = e.changedTouches[0];
 		let dis = tt.pageX - this.state.startX;
 		this.setState({
 			offX: dis
 		});
-        /*let list = this.refs.list;
-        list.style.transform = `translate3d(${dis}px,0,0)`;*/
-        
-		e.preventDefault();
 	}
 
 	handleTouchEnd(e) {
+        if(!this.isOntouch) return;
+        this.isOntouch = false;
 		let {width, isAuto} = this.props.params;
 		let {startX, startTime} = this.state;
 		this.setState({
