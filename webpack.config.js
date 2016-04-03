@@ -1,16 +1,32 @@
 "use strict";
 let path = require('path');
+let fs = require('fs');
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+let getEntries = function () {
+    let _entries = {};
+    let _basePath = path.join(__dirname, './src/app/');
+    let _entryFile = 'app.js';
+    let _dirs = fs.readdirSync(_basePath);
+    _dirs.forEach(function (dir) {
+        let _path = path.join(_basePath, dir, _entryFile);
+        if (fs.existsSync(_path)) {
+            _entries[dir] = _path;
+        }
+    });
+    return _entries;
+}
+
 
 module.exports = {
     devtool: "source-map",
     devServer: {
         'content-base': '/'
     },
-    entry: './app.js',
+    entry: getEntries(),
     output: {
         path: path.join(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: '[name]/[name].bundle.js'
     },
     module: {
         loaders: [{
@@ -30,6 +46,6 @@ module.exports = {
         extensions: ['', '.js', '.scss']
     },
     plugins: [
-        new ExtractTextPlugin("bundle.css"),
+        new ExtractTextPlugin("[name]/[name].bundle.css"),
     ]
 }
