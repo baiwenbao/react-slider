@@ -1,12 +1,15 @@
-var webpack = require('webpack');
-var webpackDevServer = require("webpack-dev-server");
+"use strict";
+let webpack = require('webpack');
+let webpackDevServer = require("webpack-dev-server");
 
-var config = require("./webpack.config.js");
-var compiler = webpack(config);
-var server = new webpackDevServer(compiler, {
-    //    conentBase: 'dist/',
+let config = require("./webpack.config.js");
+let compiler = webpack(config);
+let server = new webpackDevServer(compiler, {
+    publicPath: config.output.publicPath,
     hot: true,
     quiet: true,
-    open: 'http://localhost:8080/'
 });
-server.listen(8080);
+server.listen(8080, '127.0.0.1', function (err, result) {
+    err && console.log(err);
+    console.log('Listening at localhost: 8080');
+});

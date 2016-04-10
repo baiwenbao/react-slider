@@ -37,7 +37,7 @@ module.exports = {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
             }, {
-                test: /\.(png|jpe?g|eot|svg|ttf|woff2?)$/,
+                test: /\.(png|jpg)$/,
                 loader: "url?name=images/[name].[ext],limit=8192"
             }]
     },
