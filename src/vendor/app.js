@@ -1,3 +1,5 @@
 "use strict";
-let ko = require('knockout');
-window.ko = ko;
+//let ko = require('knockout');
+//window.ko = ko;
+
+//import 'babel-polyfill';

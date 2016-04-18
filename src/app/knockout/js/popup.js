@@ -1,3 +1,3 @@
 "use strict";
 import ko from 'knockout';
-console.log(4)
+console.log(5)

@@ -18,7 +18,6 @@ let list = [
 		img: 'http://www.bz55.com/uploads/allimg/150309/139-150309101F2.jpg'
 	}
 ];
-
 export default class Hello extends Component {
 	constructor(props) {
 		super(props);
@@ -29,7 +28,7 @@ export default class Hello extends Component {
 	render() {
 		let n = this.state.index;
 		return (
-			<Slider params={{transition: 0.5,delay: 4000,isAuto: true,isDot: true,width: window.innerWidth}}>{
+			<Slider transition={0.5} delay={4000} isAuto={true} isDot={true} width={window.innerWidth}>{
 				list.map((v, i) => {
 					return (
 						<div key={i}>

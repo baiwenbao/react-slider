@@ -1,18 +1,18 @@
-/* line 1, /Users/cooper/Documents/webpack/sass/main.scss */
-.main {
+/* line 1, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
+.root {
   width: 100%;
   overflow: hidden;
   height: 400px;
   position: relative; }
 
-/* line 8, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 8, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .list {
   /*	display: flex;*/
   width: 100%;
   height: 100%;
   /*	transition: 0.5s;*/ }
 
-/* line 15, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 15, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .item {
   width: 100%;
   height: 100%;
@@ -22,22 +22,22 @@
   transition-timing-function: linear;
   /*	flex-shrink: 0;*/ }
 
-/* line 25, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 25, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 li {
   list-style: none;
   transition: 0.5s; }
 
-/* line 30, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 30, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 img {
   width: 100%;
   height: 100%; }
 
-/* line 35, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 35, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 * {
   margin: 0;
   padding: 0; }
 
-/* line 41, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 41, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .prev,
 .next {
   position: absolute;
@@ -47,21 +47,21 @@ img {
   background: #ccc;
   top: 0; }
 
-/* line 50, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 50, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .prev {
   left: 0; }
 
-/* line 54, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 54, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .next {
   right: 0; }
 
-/* line 58, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 58, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .dots {
   text-align: center;
   position: absolute;
   bottom: 20px; }
 
-/* line 64, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 64, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .dots a {
   display: inline-block;
   width: 10px;
@@ -71,7 +71,7 @@ img {
   border-radius: 50%;
   text-indent: -999em; }
 
-/* line 74, /Users/cooper/Documents/webpack/sass/main.scss */
+/* line 74, /Users/cooper/Documents/webpack/src/app/react-slider/sass/main.scss */
 .dots a.active {
   background: #f60; }
 

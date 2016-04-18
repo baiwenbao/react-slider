@@ -1,2 +1,5 @@
-body{background:url(/dist/images/32501216.jpg) no-repeat;color:#ccc}
+body {
+  background: url(/dist/src/app/knockout/image/32501216.jpg) no-repeat;
+  color: #ccc; }
+
 /*# sourceMappingURL=knockout.bundle.css.map*/

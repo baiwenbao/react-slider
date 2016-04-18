@@ -8,8 +8,6 @@ export default class Slider extends Component {
 	constructor(props) {
 		super(props);
         this.timer = null;
-        this.startX = 0;
-        this.items = [];
 	}
 	static defaultProps = {
 		width: window.innerWidth,
@@ -19,6 +17,7 @@ export default class Slider extends Component {
     state = {
 			index: 0,
 			startX: 0,
+			offX: 0,
 			startTime: '',
 			isTouch: false,
 			direction: 'right'
@@ -66,37 +65,24 @@ export default class Slider extends Component {
             return;
         }
         this.stop();
-        this.startX = e.touches[0].pageX;
-        let items = this.refs.list.childNodes;
-        items = Array.from(items);
-        this.items = items.map((item)=>{
-            let n = item.style.WebkitTransform.match(/translate3d\(([\-\d]+)/);
-            return n[1];
-        })
-        
+        let tt = e.touches[0];
         this.setState({
             isTouch: true,
+            startX: tt.pageX,
             startTime: new Date()
         });
 	}
 
 	handleTouchMove(e) {
         e.preventDefault();
-        //
-        let startX = this.startX;
-        let curX = e.changedTouches[0].pageX;
-        let moveX = curX - startX;
-        let items = this.refs.list.childNodes;
-        items = Array.from(items);
-        items.forEach((item, i)=>{
-            item.style.WebkitTransform = `translate3d(${parseInt(this.items[i]) + moveX}px, 0px, 0px)`;
-        })
-        
-        //
-        
         if (!this.state.isTouch || e.touches.length > 1) {
             return;
         }
+        let tt = e.changedTouches[0];
+        let dis = tt.pageX - this.state.startX;
+        this.setState({
+            offX: dis
+        });
 	}
 
 	handleTouchEnd(e) {
@@ -104,12 +90,13 @@ export default class Slider extends Component {
             return;
         }
 		let {width, isAuto} = this.props;
-		let {startTime} = this.state;
+		let {startX, startTime} = this.state;
 		this.setState({
-			isTouch: false
+			isTouch: false,
+			offX: 0
 		});
 		let tt = e.changedTouches[0];
-		let offX = tt.pageX - this.startX;
+		let offX = tt.pageX - startX;
 		let endTime = new Date();
 		let touchTime = endTime.getTime() - startTime.getTime();
 
@@ -120,13 +107,8 @@ export default class Slider extends Component {
 				this.prev();
 			}
 		} else {
-            let items = this.refs.list.childNodes;
-            items = Array.from(items);
-            items.forEach((item, i)=>{
-                item.style.WebkitTransform = `translate3d(${this.items[i]}px, 0px, 0px)`;
-            })
-            
 			this.setState({
+				offX: 0,
 				direction: ''
 			});
 		}
@@ -145,25 +127,26 @@ export default class Slider extends Component {
 		let {children} = this.props;
 		let {transition} = this.props;
 		let {isDot, width} = this.props;
-		let {index, isTouch, direction} = this.state;
+		let {index, offX, isTouch, direction} = this.state;
+//		transition = isTouch ? 0 : `${transition}s`;
 		let len = children.length;
 		let prev = index === 0 ? len - 1 : index - 1;
 		let next = index === len - 1 ? 0 : index + 1;
-        let transformType = 'WebkitTransform';
+        let transformType = document.documentElement.style.transform ? 'transform' : 'WebkitTransform';
 		let style = (i) => {
 			if (i === prev) {
 				return {
-					[transformType]: `translate3d(${-1 * width}px, 0px, 0px)`,
+					[transformType]: `translate3d(${-1 * width + offX}px,0px,0px)`,
 					transition: direction === 'left' || isTouch ? '0s' : `${transition}s`
 				};
 			} else if (i === index) {
 				return {
-					[transformType]: `translate3d(0px, 0px, 0px)`,
+					[transformType]: `translate3d(${offX}px,0px,0px)`,
 					transition: isTouch ? '0s' : `${transition}s`
 				};
 			} else if (i === next) {
 				return {
-					[transformType]: `translate3d(${1 * width}px, 0px, 0px)`,
+					[transformType]: `translate3d(${1 * width + offX}px,0px,0px)`,
 					transition: direction === 'right' || isTouch ? '0s' : `${transition}s`
 				};
 			} else {
@@ -174,7 +157,7 @@ export default class Slider extends Component {
 
 		return (
 			<div className="root" onTouchStart={this.handleTouchStart.bind(this)} onTouchMove={this.handleTouchMove.bind(this)} onTouchEnd={this.handleTouchEnd.bind(this)} onTouchCancel={this.handleTouchEnd.bind(this)}>
-			<ul ref="list">
+			<ul>
 			{
 				React.Children.map(children, (v, i) => {
 					if (i === prev) {

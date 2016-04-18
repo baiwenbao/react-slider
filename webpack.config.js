@@ -3,6 +3,8 @@ let path = require('path');
 let fs = require('fs');
 let ExtractTextPlugin = require("extract-text-webpack-plugin");
 let webpack = require('webpack');
+let ip = require('ip');
+let localIp = ip.address();
 
 let getEntries = (function () {
     let _entries = {};
@@ -38,7 +40,7 @@ module.exports = {
                 loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
             }, {
                 test: /\.(png|jpg)$/,
-                loader: "url?name=images/[name].[ext],limit=8192"
+                loader: "url?name=[path][name].[ext]&limit=8192"
             }]
     },
     resolve: {
@@ -54,7 +56,7 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new ExtractTextPlugin("[name]/[name].bundle.css"),
+        new ExtractTextPlugin("[name]/[name].bundle.css")
         /*new webpack.optimize.CommonsChunkPlugin({
             name: 'commons',
             filename: 'commons.js',
