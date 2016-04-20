@@ -10,7 +10,7 @@ let server = new webpackDevServer(compiler, {
     hot: true,
 //    quiet: true,
 });
-server.listen(8080, '127.0.0.1', function (err, result) {
+server.listen(8181, '127.0.0.1', function (err, result) {
     err && console.log(err);
-    console.log('Listening at localhost:8080');
+    console.log('Listening at localhost:8181');
 });
