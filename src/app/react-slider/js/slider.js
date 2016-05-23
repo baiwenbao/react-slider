@@ -24,11 +24,16 @@ export default class Slider extends Component {
 			direction: 'right'
     }
 	next() {
-		let {children} = this.props;
+		let {children, isInfinite} = this.props;
 		let {index} = this.state;
 		let len = children.length;
 		++index;
-		index = index === len ? 0 : index;
+        if (isInfinite) {
+            index = index === len ? 0 : index;
+        } else {
+//            index = index === len ? len - 1 : index;
+        }
+		
 		this.setState({
 			index,
 			direction: 'right'
@@ -36,11 +41,16 @@ export default class Slider extends Component {
 	}
 
 	prev() {
-		let {children} = this.props;
+		let {children, isInfinite} = this.props;
 		let {index} = this.state;
 		let len = children.length;
 		--index;
-		index = index === -1 ? len - 1 : index;
+        if (isInfinite) {
+            index = index === -1 ? len - 1 : index;
+        } else {
+//            index = index === -1 ? 0 : index;
+        }
+		
 		this.setState({
 			index,
 			direction: 'left'
@@ -93,7 +103,6 @@ export default class Slider extends Component {
         })
         
         //
-        
         if (!this.state.isTouch || e.touches.length > 1) {
             return;
         }
@@ -103,8 +112,9 @@ export default class Slider extends Component {
         if (!this.state.isTouch) {
             return;
         }
-		let {width, isAuto} = this.props;
-		let {startTime} = this.state;
+		let {width, isAuto, isInfinite, children} = this.props;
+        let len = children.length;
+		let {startTime, index} = this.state;
 		this.setState({
 			isTouch: false
 		});
@@ -112,14 +122,7 @@ export default class Slider extends Component {
 		let offX = tt.pageX - this.startX;
 		let endTime = new Date();
 		let touchTime = endTime.getTime() - startTime.getTime();
-
-		if ((touchTime <= 400 && Math.abs(offX) >= 5) || Math.abs(offX) >= width / 2) {
-			if (offX < 0) {
-				this.next();
-			} else {
-				this.prev();
-			}
-		} else {
+        let reSetPosition = () => {
             let items = this.refs.list.childNodes;
             items = Array.from(items);
             items.forEach((item, i)=>{
@@ -129,6 +132,27 @@ export default class Slider extends Component {
 			this.setState({
 				direction: ''
 			});
+        }
+        
+		if ((touchTime <= 400 && Math.abs(offX) >= 5) || Math.abs(offX) >= width / 2) {
+			if (offX < 0) {
+                if(index === len - 1 && !isInfinite){
+                    console.log('last');
+                    reSetPosition();
+                } else {
+                    this.next();
+                }
+			} else {
+                if(index === 0 && !isInfinite){
+                    console.log('first');
+                   reSetPosition();
+                } else {
+                    this.prev();
+                }
+				
+			}
+		} else {
+            reSetPosition();
 		}
 
 		isAuto && this.loop();

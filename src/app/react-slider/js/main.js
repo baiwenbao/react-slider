@@ -28,7 +28,7 @@ export default class Hello extends Component {
 	render() {
 		let n = this.state.index;
 		return (
-			<Slider transition={0.5} delay={4000} isAuto={true} isDot={true} width={window.innerWidth}>{
+			<Slider isInfinite={false} transition={0.5} delay={4000} isAuto={false} isDot={true} width={window.innerWidth}>{
 				list.map((v, i) => {
 					return (
 						<div key={i}>

@@ -14,7 +14,7 @@ let getEntries = (function () {
     _dirs.forEach(function (dir) {
         let _path = path.join(_basePath, dir, _entryFile);
         if (fs.existsSync(_path)) {
-            _entries[dir] = ['webpack/hot/dev-server', 'webpack-dev-server/client?http://localhost:8080', _path];
+            _entries[dir] = ['webpack/hot/dev-server', 'webpack-dev-server/client?http://localhost:8181', _path];
         }
     });
     return _entries;
