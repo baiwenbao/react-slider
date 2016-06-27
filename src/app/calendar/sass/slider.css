@@ -1,0 +1,16 @@
+/* line 1, /Users/cooper/Documents/webpack/src/app/calendar/sass/slider.scss */
+.root {
+  overflow: hidden; }
+
+/* line 5, /Users/cooper/Documents/webpack/src/app/calendar/sass/slider.scss */
+.item {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition-timing-function: linear;
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000; }
+
+/*# sourceMappingURL=slider.css.map */

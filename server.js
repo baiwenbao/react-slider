@@ -10,7 +10,7 @@ let server = new webpackDevServer(compiler, {
     hot: true,
 //    quiet: true,
 });
-server.listen(8181, '127.0.0.1', function (err, result) {
+server.listen(process.env.npm_package_config_port, process.env.npm_package_config_ip, function (err, result) {
     err && console.log(err);
-    console.log('Listening at localhost:8181');
+    console.log('Listening at localhost:'+process.env.npm_package_config_port);
 });

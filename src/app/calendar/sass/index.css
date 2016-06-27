@@ -1,0 +1,37 @@
+/* line 1, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+/* line 7, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+ul,
+li {
+  list-style: none; }
+
+/* line 10, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+.root {
+  text-align: center; }
+
+/* line 13, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+.inActiveDay, .activeDay {
+  width: 14.28571%;
+  float: left;
+  line-height: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-width: 1px 0 0 1px; }
+
+/* line 21, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+.week {
+  display: flex; }
+
+/* line 24, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+.weekDay {
+  flex: 1; }
+
+/* line 27, /Users/cooper/Documents/webpack/src/app/calendar/sass/index.scss */
+.inActiveDay {
+  background: #f0f0f0; }
+
+/*# sourceMappingURL=index.css.map */

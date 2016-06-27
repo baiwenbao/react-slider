@@ -5,6 +5,7 @@ let ExtractTextPlugin = require("extract-text-webpack-plugin");
 let webpack = require('webpack');
 let ip = require('ip');
 let localIp = ip.address();
+let autoprefixer = require('autoprefixer');
 
 let getEntries = (function () {
     let _entries = {};
@@ -14,7 +15,7 @@ let getEntries = (function () {
     _dirs.forEach(function (dir) {
         let _path = path.join(_basePath, dir, _entryFile);
         if (fs.existsSync(_path)) {
-            _entries[dir] = ['webpack/hot/dev-server', 'webpack-dev-server/client?http://localhost:8181', _path];
+            _entries[dir] = ['webpack/hot/dev-server', 'webpack-dev-server/client?http://'+process.env.npm_package_config_ip+':'+process.env.npm_package_config_port, _path];
         }
     });
     return _entries;
@@ -36,12 +37,19 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.scss$/,
+                test: /\.scss?l$/,
                 loader: ExtractTextPlugin.extract('css?sourceMap!sass?sourceMap')
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('css?modules&importLoaders=1&localIdentName=[path][name]_[local]_[hash:base64:5]&sourceMap!postcss?sourceMap!sass?sourceMap')
             }, {
                 test: /\.(png|jpg)$/,
                 loader: "url?name=[path][name].[ext]&limit=8192"
             }]
+    },
+    postcss: function () {
+        return [autoprefixer];
     },
     resolve: {
         extensions: ['', '.js', '.scss'],

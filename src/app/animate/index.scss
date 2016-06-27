@@ -1,0 +1,28 @@
+:global(.example-enter) {
+  opacity: 0.01;
+}
+
+:global(.example-enter.example-enter-active) {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+:global(.example-leave) {
+  opacity: 1;
+  height: 20px;
+}
+
+:global(.example-leave.example-leave-active) {
+  opacity: 0.01;
+  height: 0px;
+  transition: 300ms ease-in;
+}
+:global(
+.example-appear) {
+  opacity: 0.01;
+}
+
+:global(.example-appear.example-appear-active) {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
